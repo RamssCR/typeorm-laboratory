@@ -3,13 +3,13 @@ import jwt from 'jsonwebtoken';
 export type DecodedToken<T> = T & jwt.JwtPayload;
 
 /**
- * Wrapper sobre la función sign de jsonwebtoken para crear un token JWT.
- * Convierte la función basada en callbacks a una basada en promesas.
- * @param payload - Datos que se incluirán en el token.
- * @param secret - Clave secreta o privada para firmar el token.
- * @param options - Opciones adicionales para la firma del token.
- * @returns El token JWT generado.
- * @throws Si ocurre un error durante la creación del token.
+ * Wrapper around the jsonwebtoken sign function to create a JWT token.
+ * Converts the callback-based function to a promise-based one.
+ * @param payload - Data to be included in the token.
+ * @param secret - Secret or private key to sign the token.
+ * @param options - Additional options for signing the token.
+ * @returns The generated JWT token.
+ * @throws If an error occurs during token creation.
  * @example
  * createToken({ userId: 123 }, 'mysecretkey', { expiresIn: '1h' })
  *   .then(token => console.log(token))
@@ -30,12 +30,12 @@ export const createToken = (
   });
 
 /**
- * Wrapper sobre la función verify de jsonwebtoken para decodificar un token JWT.
- * Convierte la función basada en callbacks a una basada en promesas.
- * @param token - El token JWT a decodificar.
- * @param secret - Clave secreta o pública para verificar el token.
- * @returns El contenido decodificado del token.
- * @throws Si el token no es válido o ha expirado.
+ * Wrapper around the jsonwebtoken verify function to decode a JWT token.
+ * Converts the callback-based function to a promise-based one.
+ * @param token - The JWT token to decode.
+ * @param secret - Secret or public key to verify the token.
+ * @returns The decoded content of the token.
+ * @throws If the token is invalid or has expired.
  * @example
  * decodeToken(token, 'mysecretkey')
  *   .then(decoded => console.log(decoded))
