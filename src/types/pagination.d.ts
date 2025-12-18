@@ -9,3 +9,9 @@ export type Pagination<T> = {
   total: number;
   pages: number;
 };
+
+export type PaginationParams = {
+  page: number;
+  limit: number;
+  offset: number;
+};
