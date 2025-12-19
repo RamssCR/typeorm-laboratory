@@ -10,6 +10,7 @@ import { establishConnection } from '#config/database';
 import helmet from 'helmet';
 import { limiter } from '#middlewares/limit';
 import { logger } from '#utils/logger';
+import { router } from '#routes/index';
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.get('/health', (_req, res) => {
   });
 });
 
+app.use('/api/v1', router);
 app.use(errorPath);
 app.use(errorHandler);
 
