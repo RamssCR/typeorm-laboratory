@@ -4,7 +4,7 @@ import { UserToAchievement } from './UserToAchievement.ts';
 
 @Entity()
 export class Achievement extends BaseEntity {
-  @Column({ type: 'char', length: 50 })
+  @Column({ type: 'char', length: 50, unique: true })
   title: string;
 
   @Column({ type: 'char', length: 125 })
