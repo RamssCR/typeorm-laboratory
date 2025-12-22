@@ -9,7 +9,7 @@
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
-    "useDefineForClassFields": true,
+    "useDefineForClassFields": false,
     "allowImportingTsExtensions": true,
     "noEmit": true,
     "isolatedModules": true,
