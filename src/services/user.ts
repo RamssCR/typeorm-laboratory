@@ -1,10 +1,10 @@
 import type { FindManyOptions, FindOneOptions, Repository } from 'typeorm';
+import type { Auth } from '#schemas/user';
 import { InjectRepository } from '#decorators/injectRepository';
 import type { Pagination } from '#types/pagination';
 import type { Pagination as PaginationParams } from '#schemas/pagination';
 import { Service } from '#decorators/service';
 import { User } from '#models/user';
-import type { UserSchema } from '#schemas/user';
 
 @Service()
 export class UserService {
@@ -73,7 +73,7 @@ export class UserService {
    * @param dto - The user data transfer object.
    * @returns A promise that resolves to the created User.
    */
-  public async create(dto: UserSchema): Promise<User> {
+  public async create(dto: Auth): Promise<User> {
     const user = this.userRepository.create(dto);
     return await this.userRepository.save(user);
   }
@@ -84,7 +84,7 @@ export class UserService {
    * @param dto - The partial user data to update.
    * @returns A promise that resolves to the updated User.
    */
-  public async update(id: number, dto: Partial<UserSchema>): Promise<User> {
+  public async update(id: number, dto: Partial<Auth>): Promise<User> {
     await this.userRepository.update(id, dto);
     return await this.findOne(id);
   }
