@@ -1,5 +1,6 @@
 import { Column, Entity, OneToMany } from 'typeorm';
 import { BaseEntity } from './base.ts';
+import { Exclude } from 'class-transformer';
 import { Token } from './token.ts';
 import { UserToAchievement } from './UserToAchievement.ts';
 
@@ -15,6 +16,7 @@ export class User extends BaseEntity {
   email: string;
 
   @Column({ type: 'char', length: 255 })
+  @Exclude()
   password: string;
 
   @Column({ type: 'int', default: 0 })
