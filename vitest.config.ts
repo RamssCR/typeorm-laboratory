@@ -22,6 +22,7 @@ export default defineConfig({
         'src/app.js',
         'src/routes/**',
         'src/config/**',
+        'src/types/**',
         ...coverageConfigDefaults.exclude,
       ],
     },
