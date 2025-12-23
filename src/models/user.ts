@@ -1,22 +1,20 @@
 import { Column, Entity, OneToMany } from 'typeorm';
 import { BaseEntity } from './base.ts';
-import { Exclude } from 'class-transformer';
 import { Token } from './token.ts';
 import { UserToAchievement } from './UserToAchievement.ts';
 
 @Entity()
 export class User extends BaseEntity {
-  @Column({ type: 'char', length: 50 })
+  @Column({ type: 'varchar', length: 50 })
   username: string;
 
-  @Column({ type: 'char', length: 20 })
+  @Column({ type: 'varchar', length: 20 })
   phone: string;
 
-  @Column({ type: 'char', length: 55, unique: true })
+  @Column({ type: 'varchar', length: 55, unique: true })
   email: string;
 
-  @Column({ type: 'char', length: 255 })
-  @Exclude()
+  @Column({ type: 'varchar', length: 255 })
   password: string;
 
   @Column({ type: 'int', default: 0 })
