@@ -2,10 +2,10 @@ import {
   COOKIE_EXPIRATION_ONE_DAY,
   COOKIE_EXPIRATION_ONE_WEEK,
 } from '#utils/constants';
-import type { Auth } from '#schemas/user';
 import type { AuthService } from '#services/auth';
 import { NODE_ENV } from '#config/environment';
 import type { RequestHandler } from 'express';
+import type { UserSchema } from '#schemas/user';
 
 /**
  * Handles user login requests.
@@ -16,7 +16,7 @@ export const login =
   (authService: AuthService): RequestHandler =>
   async (req, res, next) => {
     try {
-      const { tokens, user } = await authService.login(req.body as Auth);
+      const { tokens, user } = await authService.login(req.body as UserSchema);
       res
         .cookie('accessToken', tokens.accessToken, {
           httpOnly: true,
@@ -47,7 +47,9 @@ export const register =
   (authService: AuthService): RequestHandler =>
   async (req, res, next) => {
     try {
-      const { tokens, user } = await authService.register(req.body as Auth);
+      const { tokens, user } = await authService.register(
+        req.body as UserSchema,
+      );
       res
         .cookie('accessToken', tokens.accessToken, {
           httpOnly: true,

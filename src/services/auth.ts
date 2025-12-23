@@ -5,12 +5,12 @@ import {
   JWT_SECRET,
 } from '#config/environment';
 import { tokenDecoder, tokenEncoder } from '#helpers/tokenEncoder';
-import type { Auth } from '#schemas/user';
 import { InjectService } from '#decorators/injectService';
 import { Service } from '#decorators/service';
 import type { SignOptions } from 'jsonwebtoken';
 import { TokenService } from './token';
 import type { User } from '#models/user';
+import type { UserSchema } from '#schemas/user';
 import { UserService } from './user';
 import { compareValue } from '#libs/bcrypt';
 import { createToken } from '#libs/jwt';
@@ -32,7 +32,9 @@ export class AuthService {
    * @param data - The authentication data containing email and password.
    * @returns An object containing the authenticated user and JWT tokens.
    */
-  public async login(data: Auth): Promise<{ user: User; tokens: Tokens }> {
+  public async login(
+    data: UserSchema,
+  ): Promise<{ user: User; tokens: Tokens }> {
     const user = await this.userService.findByEmail(data.email);
     if (!user || !(await compareValue(data.password, user.password)))
       throw new Error('Invalid email or password');
@@ -45,7 +47,9 @@ export class AuthService {
    * @param data - The authentication data for the new user.
    * @returns An object containing the newly created user and JWT tokens.
    */
-  public async register(data: Auth): Promise<{ user: User; tokens: Tokens }> {
+  public async register(
+    data: UserSchema,
+  ): Promise<{ user: User; tokens: Tokens }> {
     const storedUser = await this.userService.findByEmail(data.email);
     if (storedUser) throw new Error('Email already in use');
 
