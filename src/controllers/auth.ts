@@ -84,7 +84,7 @@ export const profile =
       res.json({
         status: 'success',
         message: 'Profile retrieved successfully',
-        data: { user },
+        data: user,
       });
     } catch (error) {
       next(error);
@@ -140,7 +140,7 @@ export const refresh =
         .json({
           status: 'success',
           message: 'Tokens refreshed successfully',
-          data: { tokens },
+          data: tokens,
         });
     } catch (error) {
       next(error);

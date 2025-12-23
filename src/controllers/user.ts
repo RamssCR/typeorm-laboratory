@@ -1,5 +1,5 @@
+import type { Auth } from '#schemas/user';
 import type { RequestHandler } from 'express';
-import type { UserSchema } from '#schemas/user';
 import type { UserService } from '#services/user';
 import httpStatus from 'http-status';
 
@@ -60,7 +60,7 @@ export const createUser =
   (service: UserService): RequestHandler =>
   async (req, res, next) => {
     try {
-      const user = await service.create(req.body as UserSchema);
+      const user = await service.create(req.body as Auth);
       res.status(httpStatus.CREATED).json({
         status: 'success',
         message: 'User created successfully',
@@ -82,10 +82,7 @@ export const updateUser =
     const { id } = req.params;
 
     try {
-      const user = await service.update(
-        Number(id),
-        req.body as Partial<UserSchema>,
-      );
+      const user = await service.update(Number(id), req.body as Partial<Auth>);
       res.json({
         status: 'success',
         message: 'User updated successfully',
