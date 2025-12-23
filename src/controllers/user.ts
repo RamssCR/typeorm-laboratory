@@ -1,7 +1,9 @@
-import type { Auth } from '#schemas/user';
 import type { RequestHandler } from 'express';
+import type { UserSchema } from '#schemas/user';
+import { UserResponse } from '#dtos/user';
 import type { UserService } from '#services/user';
 import httpStatus from 'http-status';
+import { serialize } from '#utils/serialize';
 
 /**
  * Gets a list of users from the UserService.
@@ -22,7 +24,10 @@ export const getUsers =
       res.json({
         status: 'success',
         message: 'Users retrieved successfully',
-        data: users,
+        data: {
+          ...users,
+          items: serialize(UserResponse, users.items),
+        },
       });
     } catch (error) {
       next(error);
@@ -44,7 +49,7 @@ export const getUserById =
       res.json({
         status: 'success',
         message: 'User retrieved successfully',
-        data: user,
+        data: serialize(UserResponse, user),
       });
     } catch (error) {
       next(error);
@@ -60,14 +65,14 @@ export const createUser =
   (service: UserService): RequestHandler =>
   async (req, res, next) => {
     try {
-      const user = await service.create(req.body as Auth);
+      const user = await service.create(req.body as UserSchema);
       res.status(httpStatus.CREATED).json({
         status: 'success',
         message: 'User created successfully',
-        data: user,
+        data: serialize(UserResponse, user),
       });
     } catch (error) {
-      return next(error);
+      next(error);
     }
   };
 
@@ -82,11 +87,14 @@ export const updateUser =
     const { id } = req.params;
 
     try {
-      const user = await service.update(Number(id), req.body as Partial<Auth>);
+      const user = await service.update(
+        Number(id),
+        req.body as Partial<UserSchema>,
+      );
       res.json({
         status: 'success',
         message: 'User updated successfully',
-        data: user,
+        data: serialize(UserResponse, user),
       });
     } catch (error) {
       next(error);
