@@ -4,7 +4,6 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Exclude } from 'class-transformer';
 
 /**
  * BaseEntity class that includes common fields for all entities.
@@ -15,14 +14,11 @@ export abstract class BaseEntity {
   id: number;
 
   @CreateDateColumn()
-  @Exclude()
   createdAt: Date;
 
   @UpdateDateColumn()
-  @Exclude()
   updatedAt: Date;
 
   @DeleteDateColumn({ nullable: true })
-  @Exclude()
   deletedAt: Date;
 }
