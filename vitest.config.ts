@@ -20,6 +20,8 @@ export default defineConfig({
         '**/index.js',
         'src/app.ts',
         'src/app.js',
+        'src/models/**',
+        'src/dtos/**',
         'src/routes/**',
         'src/config/**',
         'src/types/**',
