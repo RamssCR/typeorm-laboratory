@@ -19,7 +19,7 @@ export const createToken = (
   payload: string | object | Buffer,
   secret: jwt.Secret | jwt.PrivateKey,
   options: jwt.SignOptions = {},
-) =>
+): Promise<string> =>
   new Promise((resolve, reject) => {
     try {
       const token = jwt.sign(payload, secret, options);
