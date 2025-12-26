@@ -20,7 +20,7 @@ export class TokenService {
    */
   public async findAll(
     userId: number,
-    { page = 1, limit = 10, offset = 0 }: PaginationParams,
+    { page = 1, limit = 10, offset = 0 }: Partial<PaginationParams>,
     options: FindManyOptions<Token> = {},
   ): Promise<Pagination<Token>> {
     const [items, total] = await this.tokenRepository.findAndCount({
