@@ -1,3 +1,4 @@
+import type { Instance } from '#config/container';
 import { plainToInstance } from 'class-transformer';
 
 /**
@@ -6,12 +7,21 @@ import { plainToInstance } from 'class-transformer';
  * @param data - The plain data to serialize.
  * @returns An instance of the specified class with serialized data.
  */
-export const serialize = <T extends object>(
-  instance: new () => T,
+export function serialize<T extends object>(
+  instance: Instance<T>,
+  data: unknown[],
+): T[];
+export function serialize<T extends object>(
+  instance: Instance<T>,
   data: unknown,
-): T | T[] =>
-  Array.isArray(data)
+): T;
+export function serialize<T extends object>(
+  instance: Instance<T>,
+  data: unknown,
+): T | T[] {
+  return Array.isArray(data)
     ? data.map((item) =>
         plainToInstance(instance, item, { excludeExtraneousValues: true }),
       )
     : plainToInstance(instance, data, { excludeExtraneousValues: true });
+}
