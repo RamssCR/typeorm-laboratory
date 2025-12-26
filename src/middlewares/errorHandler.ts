@@ -40,6 +40,7 @@ export const errorHandler = (
     });
   }
 
+  logger.error(error);
   return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
     status: 'error',
     code: httpStatus.INTERNAL_SERVER_ERROR,
