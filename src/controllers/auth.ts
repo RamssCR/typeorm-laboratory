@@ -6,6 +6,7 @@ import type { AuthService } from '#services/auth';
 import { NODE_ENV } from '#config/environment';
 import type { RequestHandler } from 'express';
 import type { UserSchema } from '#schemas/user';
+import httpStatus from 'http-status';
 
 /**
  * Handles user login requests.
@@ -61,6 +62,7 @@ export const register =
           secure: NODE_ENV === 'production',
           maxAge: COOKIE_EXPIRATION_ONE_WEEK,
         })
+        .status(httpStatus.CREATED)
         .json({
           status: 'success',
           message: 'Registered successfully',
