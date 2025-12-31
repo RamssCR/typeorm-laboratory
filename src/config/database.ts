@@ -21,6 +21,7 @@ export const appDataSource = new DataSource({
   entities: ['src/models/**/*.{ts,js}'],
   logging: DEBUG,
   synchronize: NODE_ENV === 'development',
+  migrations: ['migrations/*.{ts,js}'],
 });
 
 /**
