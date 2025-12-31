@@ -1,6 +1,11 @@
-import { logger } from '#utils/logger';
 import { env } from '#schemas/env';
+import { loadEnvFile } from 'node:process';
+import { logger } from '#utils/logger';
+import { resolve } from 'node:path';
 import { treeifyError } from 'zod';
+
+if (process.env.NODE_ENV !== 'development')
+  loadEnvFile(resolve(process.cwd(), '.env'));
 
 const parsed = env.safeParse(process.env);
 
