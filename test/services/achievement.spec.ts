@@ -30,10 +30,9 @@ describe('Services - Achievement', () => {
       2,
     ]);
 
-    const result = await service.findAll(1, { page: 1, limit: 10 });
+    const result = await service.findAll({ page: 1, limit: 10 });
 
     expect(repository.findAndCount).toHaveBeenCalledWith({
-      where: { userToAchievements: { id: 1 } },
       skip: 0,
       take: 10,
       order: { createdAt: 'DESC' },
@@ -68,11 +67,8 @@ describe('Services - Achievement', () => {
     vi.spyOn(repository, 'create').mockReturnValue(mockAchievement);
     vi.spyOn(repository, 'save').mockResolvedValue(mockAchievement);
 
-    const result = await service.create(achievementData, 1);
-    expect(repository.create).toHaveBeenCalledWith({
-      ...achievementData,
-      userToAchievements: [{ id: 1 }],
-    });
+    const result = await service.create(achievementData);
+    expect(repository.create).toHaveBeenCalledWith({ ...achievementData });
     expect(repository.save).toHaveBeenCalledWith(mockAchievement);
     expect(result).toEqual(mockAchievement);
   });
@@ -113,11 +109,3 @@ describe('Services - Achievement', () => {
     expect(result).toBe(true);
   });
 });
-
-/*
-  - PRs
-  - Correccion PR
-  - Correccion Pruebas
-
-  - Hablar con Alex para contexto de carrito abandonado
-*/

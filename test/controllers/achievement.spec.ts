@@ -59,7 +59,7 @@ describe('Achievement Controller', () => {
     const handler = getAchievements(achievementService);
     await handler(req, res, next);
 
-    expect(achievementService.findAll).toHaveBeenCalledWith(1, {
+    expect(achievementService.findAll).toHaveBeenCalledWith({
       page: 1,
       limit: 10,
       offset: 0,
@@ -119,10 +119,11 @@ describe('Achievement Controller', () => {
     const handler = createAchievement(achievementService);
     await handler(req, res, next);
 
-    expect(achievementService.create).toHaveBeenCalledWith(
-      { title: 'New Achievement', description: 'New Description', points: 100 },
-      1,
-    );
+    expect(achievementService.create).toHaveBeenCalledWith({
+      title: 'New Achievement',
+      description: 'New Description',
+      points: 100,
+    });
     expect(res._getStatusCode()).toBe(201);
   });
 
@@ -202,7 +203,7 @@ describe('Achievement Controller Error Handling', () => {
     const handler = getAchievements(achievementService);
     await handler(req, res, next);
 
-    expect(achievementService.findAll).toHaveBeenCalledWith(1, {
+    expect(achievementService.findAll).toHaveBeenCalledWith({
       page: 1,
       limit: 10,
       offset: 0,
@@ -251,10 +252,11 @@ describe('Achievement Controller Error Handling', () => {
     const handler = createAchievement(achievementService);
     await handler(req, res, next);
 
-    expect(achievementService.create).toHaveBeenCalledWith(
-      { title: 'New Achievement', description: 'New Description', points: 100 },
-      1,
-    );
+    expect(achievementService.create).toHaveBeenCalledWith({
+      title: 'New Achievement',
+      description: 'New Description',
+      points: 100,
+    });
     expect(next).toHaveBeenCalled();
   });
 
