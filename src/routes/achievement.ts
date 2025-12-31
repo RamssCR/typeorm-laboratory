@@ -20,7 +20,6 @@ export const achievementRouter = Router();
 achievementRouter.get(
   '/',
   validate(pagination, { mode: 'partial', target: 'query' }),
-  validate(params.pick({ id: true }), { target: 'user' }),
   getAchievements(achievementService),
 );
 achievementRouter.get(
@@ -31,7 +30,6 @@ achievementRouter.get(
 achievementRouter.post(
   '/',
   validate(achievement),
-  validate(params.pick({ id: true }), { target: 'user' }),
   createAchievement(achievementService),
 );
 achievementRouter.patch(

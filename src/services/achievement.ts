@@ -18,14 +18,12 @@ export class AchievementService {
    * @returns A promise that resolves to a paginated list of achievements.
    */
   public async findAll(
-    userId: number,
     { page = 1, limit = 10, offset = 0 }: Partial<PaginationParams> = {},
     options: FindManyOptions<Achievement> = {},
   ): Promise<Pagination<Achievement>> {
     const [achievements, total] = await this.achievementRepository.findAndCount(
       {
         ...options,
-        where: { ...options.where, userToAchievements: { id: userId } },
         skip: offset,
         take: limit,
         order: { createdAt: 'DESC' },
@@ -61,14 +59,8 @@ export class AchievementService {
    * @param dto - The achievement data transfer object.
    * @returns A promise that resolves to the created achievement.
    */
-  public async create(
-    dto: AchievementSchema,
-    userId: number,
-  ): Promise<Achievement> {
-    const achievement = this.achievementRepository.create({
-      ...dto,
-      userToAchievements: [{ id: userId }],
-    });
+  public async create(dto: AchievementSchema): Promise<Achievement> {
+    const achievement = this.achievementRepository.create({ ...dto });
     return this.achievementRepository.save(achievement);
   }
 

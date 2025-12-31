@@ -1,5 +1,7 @@
+import { AchievementResponse } from '#dtos/achievement';
 import type { AchievementSchema } from '#schemas/achievement';
 import type { AchievementService } from '#services/achievement';
+import { serialize } from '#utils/serialize';
 import type { RequestHandler } from 'express';
 import httpStatus from 'http-status';
 
@@ -11,11 +13,10 @@ import httpStatus from 'http-status';
 export const getAchievements =
   (service: AchievementService): RequestHandler =>
   async (req, res, next) => {
-    const userId = req.user?.id as number;
     const { page, limit, offset } = req.query;
 
     try {
-      const achievements = await service.findAll(userId, {
+      const achievements = await service.findAll({
         page: Number(page),
         limit: Number(limit),
         offset: Number(offset),
@@ -24,7 +25,10 @@ export const getAchievements =
       res.json({
         status: 'success',
         message: 'Achievements retrieved successfully',
-        data: achievements,
+        data: {
+          ...achievements,
+          items: serialize(AchievementResponse, achievements.items),
+        },
       });
     } catch (error) {
       next(error);
@@ -46,7 +50,7 @@ export const getAchievementById =
       res.json({
         status: 'success',
         message: 'Achievement retrieved successfully',
-        data: achievement,
+        data: serialize(AchievementResponse, achievement),
       });
     } catch (error) {
       next(error);
@@ -61,17 +65,12 @@ export const getAchievementById =
 export const createAchievement =
   (service: AchievementService): RequestHandler =>
   async (req, res, next) => {
-    const userId = req.user?.id as number;
-
     try {
-      const achievement = await service.create(
-        req.body as AchievementSchema,
-        userId,
-      );
+      const achievement = await service.create(req.body as AchievementSchema);
       res.status(httpStatus.CREATED).json({
         status: 'success',
         message: 'Achievement created successfully',
-        data: achievement,
+        data: serialize(AchievementResponse, achievement),
       });
     } catch (error) {
       next(error);
@@ -96,7 +95,7 @@ export const updateAchievement =
       res.json({
         status: 'success',
         message: 'Achievement updated successfully',
-        data: achievement,
+        data: serialize(AchievementResponse, achievement),
       });
     } catch (error) {
       next(error);
