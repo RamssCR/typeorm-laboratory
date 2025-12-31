@@ -4,10 +4,10 @@ import { UserToAchievement } from './UserToAchievement.ts';
 
 @Entity()
 export class Achievement extends BaseEntity {
-  @Column({ type: 'char', length: 50, unique: true })
+  @Column({ type: 'varchar', length: 50, unique: true })
   title: string;
 
-  @Column({ type: 'char', length: 125 })
+  @Column({ type: 'varchar', length: 125 })
   description: string;
 
   @Column({ type: 'int' })
