@@ -21,7 +21,7 @@ export class User extends BaseEntity {
   points: number;
 
   @OneToMany(() => Token, (token) => token.user)
-  tokens: Token[];
+  tokens: Promise<Token[]>;
 
   @OneToMany(
     () => UserToAchievement,

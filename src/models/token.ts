@@ -17,5 +17,5 @@ export class Token extends BaseEntity {
   revokedAt: Date;
 
   @ManyToOne(() => User, (user) => user.tokens, { onDelete: 'CASCADE' })
-  user: User;
+  user: Promise<User>;
 }
