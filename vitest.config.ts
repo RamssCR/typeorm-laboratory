@@ -1,6 +1,8 @@
 import { defineConfig, coverageConfigDefaults } from 'vitest/config';
+import swc from 'unplugin-swc';
 
 export default defineConfig({
+  plugins: [swc.vite()],
   test: {
     globals: true,
     environment: 'node',
@@ -18,8 +20,11 @@ export default defineConfig({
         '**/index.js',
         'src/app.ts',
         'src/app.js',
+        'src/models/**',
+        'src/dtos/**',
         'src/routes/**',
         'src/config/**',
+        'src/types/**',
         ...coverageConfigDefaults.exclude,
       ],
     },

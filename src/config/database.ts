@@ -8,6 +8,7 @@ import {
   NODE_ENV,
 } from './environment.ts';
 import { DataSource } from 'typeorm';
+import { container } from './container.ts';
 import { logger } from '#utils/logger';
 
 export const appDataSource = new DataSource({
@@ -20,6 +21,7 @@ export const appDataSource = new DataSource({
   entities: ['src/models/**/*.{ts,js}'],
   logging: DEBUG,
   synchronize: NODE_ENV === 'development',
+  migrations: ['migrations/*.{ts,js}'],
 });
 
 /**
@@ -31,6 +33,7 @@ export const appDataSource = new DataSource({
 export const establishConnection = async () => {
   try {
     await appDataSource.initialize();
+    container.setDataSource(appDataSource);
     logger.info('Database connection established');
   } catch (error) {
     logger.error('Error establishing database connection:', error);

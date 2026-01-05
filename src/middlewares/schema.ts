@@ -2,7 +2,7 @@ import type { Request, RequestHandler } from 'express';
 import httpStatus from 'http-status';
 import { z } from 'zod';
 
-type Target = 'headers' | 'body' | 'params' | 'query';
+type Target = 'headers' | 'body' | 'user' | 'params' | 'query';
 type Mode = 'full' | 'partial';
 
 type ZodParams = {
@@ -63,7 +63,7 @@ const parseSchema = ({ object, schema, mode }: ZodParams) => {
 export const validate =
   (
     schema: z.ZodSchema,
-    { target = 'body', mode = 'full' }: SchemaValidator,
+    { target = 'body', mode = 'full' }: Partial<SchemaValidator> = {},
   ): RequestHandler =>
   (req, res, next) => {
     const result = parseSchema({ object: req[target], schema, mode });

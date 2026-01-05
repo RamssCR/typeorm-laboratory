@@ -10,6 +10,8 @@ import { establishConnection } from '#config/database';
 import helmet from 'helmet';
 import { limiter } from '#middlewares/limit';
 import { logger } from '#utils/logger';
+import parser from 'cookie-parser';
+import { router } from '#routes/index';
 
 const app = express();
 
@@ -17,6 +19,7 @@ app.use(json());
 app.use(urlencoded({ extended: true }));
 
 app.use(helmet());
+app.use(parser());
 app.use(cors({ skip: NODE_ENV === 'development', origins: ALLOWED_ORIGINS }));
 app.use(limiter(NODE_ENV === 'development'));
 
@@ -28,6 +31,7 @@ app.get('/health', (_req, res) => {
   });
 });
 
+app.use('/api/v1', router);
 app.use(errorPath);
 app.use(errorHandler);
 

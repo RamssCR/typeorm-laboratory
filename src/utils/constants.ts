@@ -13,4 +13,20 @@ const CRYPTO_RANDOM_BYTES = 16;
  */
 const OUTPUT_FILE = 'output.json';
 
-export { SALT_ROUNDS, OUTPUT_FILE, CRYPTO_RANDOM_BYTES };
+/**
+ * Cookie expiration time set to one day (in milliseconds).
+ */
+const COOKIE_EXPIRATION_ONE_DAY = 24 * 60 * 60 * 1000;
+
+/**
+ * Cookie expiration time set to one week (in milliseconds).
+ */
+const COOKIE_EXPIRATION_ONE_WEEK = 7 * COOKIE_EXPIRATION_ONE_DAY;
+
+export {
+  SALT_ROUNDS,
+  OUTPUT_FILE,
+  CRYPTO_RANDOM_BYTES,
+  COOKIE_EXPIRATION_ONE_DAY,
+  COOKIE_EXPIRATION_ONE_WEEK,
+};

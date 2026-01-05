@@ -10,7 +10,11 @@
     "test:coverage": "vitest --coverage",
     "prepare": "husky || true",
     "lint": "eslint . --ext .ts --fix",
-    "lint:strict": "eslint . --ext .ts --max-warnings=0"
+    "lint:strict": "eslint . --ext .ts --max-warnings=0",
+    "migration:create": "typeorm migration:create",
+    "migration:run": "typeorm-ts-node-esm migration:run -d src/config/database.ts",
+    "migration:revert": "typeorm-ts-node-esm migration:revert -d src/config/database.ts",
+    "migration:status": "typeorm-ts-node-esm migration:show -d src/config/database.ts"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +24,7 @@
     "@commitlint/cli": "^20.2.0",
     "@commitlint/config-conventional": "^20.2.0",
     "@eslint/js": "^9.39.2",
+    "@types/cookie-parser": "^1.4.10",
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^25.0.2",
@@ -31,15 +36,20 @@
     "husky": "^9.1.7",
     "jiti": "^2.6.1",
     "lint-staged": "^16.2.7",
+    "node-mocks-http": "^1.17.2",
     "prettier": "^3.7.4",
     "tsconfig-paths": "^4.2.0",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.50.0",
+    "unplugin-swc": "^1.5.9",
     "vitest": "^4.0.16"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.3",
+    "cookie-parser": "^1.4.7",
     "express": "^5.2.1",
     "express-rate-limit": "^8.2.1",
     "helmet": "^8.1.0",
@@ -59,6 +69,7 @@
     ]
   },
   "imports": {
-    "#*": "./src/*.ts"
+    "#*": "./src/*.ts",
+    "#seeders/*": "./seeders/*"
   }
 }
