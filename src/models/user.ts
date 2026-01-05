@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany } from 'typeorm';
 import { BaseEntity } from './base.ts';
-import { Token } from './token.ts';
+import type { Token } from './token.ts';
 import { UserToAchievement } from './UserToAchievement.ts';
 
 @Entity()
@@ -20,8 +20,8 @@ export class User extends BaseEntity {
   @Column({ type: 'int', default: 0 })
   points: number;
 
-  @OneToMany(() => Token, (token) => token.user)
-  tokens: Promise<Token[]>;
+  @OneToMany('Token', (token: Token) => token.user)
+  tokens: Token[];
 
   @OneToMany(
     () => UserToAchievement,

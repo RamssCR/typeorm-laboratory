@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToOne } from 'typeorm';
 import { BaseEntity } from './base.ts';
-import { User } from './user.ts';
+import type { User } from './user.ts';
 
 @Entity()
 export class Token extends BaseEntity {
@@ -16,6 +16,6 @@ export class Token extends BaseEntity {
   @Column({ type: 'timestamptz', nullable: true })
   revokedAt: Date;
 
-  @ManyToOne(() => User, (user) => user.tokens, { onDelete: 'CASCADE' })
-  user: Promise<User>;
+  @ManyToOne('User', (user: User) => user.tokens, { onDelete: 'CASCADE' })
+  user: User;
 }
