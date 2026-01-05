@@ -10,7 +10,7 @@ y TypeORM, tomando como base las rúbricas evaluadas durante el laboratorio.
 - Clona el proyecto
 - Instala dependencias
 - Agrega las variables de entorno necesarias (revisar el `.env.example`)
-- Cambia el entorno de node a 'staging' (para activar migraciones)
+- Cambia el entorno de node a 'staging' (sincronizaciones solo se activan en desarrollo)
 - Ejecuta las migraciones (`npm run migration:run`)
 - Inicia la API (`npm run dev`)
 
