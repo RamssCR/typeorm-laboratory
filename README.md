@@ -6,9 +6,17 @@ y TypeORM, tomando como base las rúbricas evaluadas durante el laboratorio.
 > [!NOTE]
 > Si se desea ver el análisis textual del laboratorio, haz [click aquí](./docs/Laboratorio_TypeORM.pdf)
 
+## Antes de empezar
+- Clona el proyecto
+- Instala dependencias
+- Agrega las variables de entorno necesarias (revisar el `.env.example`)
+- Cambia el entorno de node a 'staging' (para activar migraciones)
+- Ejecuta las migraciones (`npm run migration:run`)
+- Inicia la API (`npm run dev`)
+
 ---
 
-### Instalación y Configuración
+## Instalación y Configuración
 
 **Sequelize**
 ```ts
